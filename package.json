@@ -1,0 +1,19 @@
+{
+  "name": "waveform_editor",
+  "version": "1.0.0",
+  "description": "Make music with different scales and also a waveform editor ahem",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Exr0n/waveform_editor.git"
+  },
+  "author": "Minecire, Exr0n",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Exr0n/waveform_editor/issues"
+  },
+  "homepage": "https://github.com/Exr0n/waveform_editor#readme"
+}
