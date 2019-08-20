@@ -52,6 +52,26 @@ var threads = [];
 threads.push(new thread([4,4,8],"Western", "Thread 1"));
 threads.push(new thread([4,4],"Western", "Thread 2"));
 
+class scale {
+  baseNote;
+  size;
+  quantity;
+  weights = [];
+  colors = [];
+  name;
+
+  constructor(bs, sz, qu, wg, cl, nm){
+    this.baseNote = bs;
+    this.size = sz;
+    this.quantity = q;
+    for(var i = 0; i < wg.length; i++){
+      this.weights.push(wg[i]);
+      this.colors.push(cl[i]);
+    }
+    this.name = nm;
+  }
+}
+
 function run(){
   canvas.width=window.innerWidth-3;
   canvas.height=window.innerHeight-4;
