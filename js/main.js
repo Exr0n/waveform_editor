@@ -1,8 +1,8 @@
-const baseColor = "#364842";
-const baseSelected = "#465852";
-const secondColor = "#506960";
-const secondSelected = "#607970";
-const textColor = "#D6FFF4";
+const baseColor = "#364248";
+const baseSelected = "#263238";
+const secondColor = "#506069";
+const secondSelected = "#607079";
+const textColor = "#D6F4FF";
 
 var canvas = document.getElementById("Editor");
 var ctx = canvas.getContext("2d");
