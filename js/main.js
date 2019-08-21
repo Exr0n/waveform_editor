@@ -126,7 +126,7 @@ function run(){
         }
         else{
           if(Rect(canvas.width*0.0125+indexOfTimes*canvas.width*0.02, canvas.height*0.135+canvas.height*0.11*indexOfThreads, canvas.width*0.015, canvas.height*0.025, "base", true) && clicking){
-            var n = window.prompt("What would you like to change this sub-division to?","4");
+            var n = window.prompt("What would you like to change this sub-division to?",threads[indexOfThreads].times[indexOfTimes]);
             if(n != null){
               threads[indexOfThreads].times[indexOfTimes] = n;
             }
@@ -136,7 +136,12 @@ function run(){
         }
       }
       
-      Rect(canvas.width*0.02, canvas.height*0.105+canvas.height*0.11*indexOfThreads, canvas.width*0.06, canvas.height*0.025, "base", true);
+      if(Rect(canvas.width*0.015, canvas.height*0.105+canvas.height*0.11*indexOfThreads, canvas.width*0.07, canvas.height*0.025, "base", true) && clicking){
+        var s = window.prompt("What would you like to change this name to?", threads[indexOfThreads].name);
+        if(s != null){
+          threads[indexOfThreads].name = s;
+        }
+      }
       ctx.fillStyle = textColor;
       ctx.fillText(threads[indexOfThreads].name, canvas.width*0.05, canvas.height*0.1175+canvas.height*0.11*indexOfThreads);
     }
