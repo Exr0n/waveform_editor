@@ -4,4 +4,4 @@ function run(){
     }
 }
 
-var interval = setInterval(run,30);
+var interval = setInterval(run,10);
