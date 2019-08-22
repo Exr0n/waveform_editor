@@ -4,6 +4,7 @@ function run(){
   console.log(screen);
   if(screen == "Main"){
     scroll *= (window.innerWidth-3) / canvas.width;
+    scrollLimit = canvas.height * 0.9 - (threads.length+1) * canvas.height*0.11;
     canvas.width=window.innerWidth-3;
     canvas.height=window.innerHeight-4;
     
@@ -95,7 +96,7 @@ function run(){
 
         ctx.fillStyle = textColor2;
         ctx.fillText("v "+Math.round(threads[indexOfThreads].volume), canvas.width*0.03125, canvas.height*0.1825+canvas.height*0.11*indexOfThreads + scroll);
-        ctx.fillText("p "+Math.round(threads[indexOfThreads].pan), canvas.width*0.06875, canvas.height*0.1825+canvas.height*0.11*indexOfThreads);
+        ctx.fillText("p "+Math.round(threads[indexOfThreads].pan), canvas.width*0.06875, canvas.height*0.1825+canvas.height*0.11*indexOfThreads + scroll);
       }
     }
     if(dropDownSelected != -1){

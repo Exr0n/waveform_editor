@@ -15,6 +15,7 @@ var mouseX, mouseY;
 var clicking;
 var rClicking;
 var scroll = 0;
+var scrollLimit = 0;
 
 var screen = "Main";
 
@@ -33,6 +34,8 @@ function mUp(event){
 
 function mScroll(event){
   scroll += event.wheelDelta * canvas.width / 3840;
+  if(scroll > 0 || scrollLimit >= 0){scroll = 0;}
+  if(scroll < scrollLimit && scrollLimit < 0){scroll = scrollLimit;}
 }
 
 function Rect(x, y, w, h, col, selectable, dds){
