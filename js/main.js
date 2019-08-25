@@ -46,8 +46,11 @@ function Rect(x, y, w, h, col, selectable, dds){
     else if(col == "second"){
       ctx.fillStyle = secondSelected;
     }
-    else if(coll = "third"){
+    else if(col == "third"){
       ctx.fillStyle = thirdSelected;
+    }
+    else{
+      ctx.fillStyle = col;
     }
   }
   else{
@@ -57,8 +60,11 @@ function Rect(x, y, w, h, col, selectable, dds){
     else if(col == "second"){
       ctx.fillStyle = secondColor;
     }
-    else if(coll = "third"){
+    else if(col == "third"){
       ctx.fillStyle = thirdColor;
+    }
+    else{
+      ctx.fillStyle = col;
     }
   }
   ctx.fillRect(x, y, w, h);
@@ -90,16 +96,22 @@ class scale {
   quantity;
   weights = [];
   colors = [];
+  names = [];
   name;
 
-  constructor(bs, sz, qu, wg, cl, nm){
+  constructor(bs, sz, qu, wg, cl, ns, nm){
     this.baseNote = bs;
     this.size = sz;
     this.quantity = qu;
     for(var i = 0; i < wg.length; i++){
       this.weights.push(wg[i]);
       this.colors.push(cl[i]);
+      this.names.push(ns[i]);
     }
     this.name = nm;
   }
 }
+
+var scales = [];
+
+scales.push(new scale(440, 2, 12, [1,1,1,1,1,1,1,1,1,1,1,1], [1,0,1,1,0,1,0,1,1,0,1,0],["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],"Western"));

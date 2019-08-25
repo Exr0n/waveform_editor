@@ -1,14 +1,12 @@
 var dropDownSelected = -1;
 
 function run(){
-  console.log(screen);
   if(screen == "Home"){
-    scroll *= (window.innerWidth-3) / canvas.width;
-    scrollLimit = canvas.height * 0.9 - (threads.length+1) * canvas.height*0.11;
     canvas.width=window.innerWidth-3;
     canvas.height=window.innerHeight-4;
-    
     Rect(0,0,canvas.width,canvas.height, "base", false);
+    scroll *= (window.innerWidth-3) / canvas.width;
+    scrollLimit = canvas.height * 0.9 - (threads.length+1) * canvas.height*0.11;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = Math.min(canvas.width, canvas.height*1.9)*0.01 + "px Arial";
