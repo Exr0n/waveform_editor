@@ -17,7 +17,7 @@ var rClicking;
 var scroll = 0;
 var scrollLimit = 0;
 
-var screen = "Main";
+var screen = "Home";
 
 function setMouseCoords(event){
   mouseX = event.clientX;

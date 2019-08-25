@@ -2,7 +2,7 @@ var dropDownSelected = -1;
 
 function run(){
   console.log(screen);
-  if(screen == "Main"){
+  if(screen == "Home"){
     scroll *= (window.innerWidth-3) / canvas.width;
     scrollLimit = canvas.height * 0.9 - (threads.length+1) * canvas.height*0.11;
     canvas.width=window.innerWidth-3;
