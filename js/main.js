@@ -10,6 +10,7 @@ const textColor3 = "#102021";
 
 var canvas = document.getElementById("Editor");
 var ctx = canvas.getContext("2d");
+var auctx = new window.AudioContext();
 
 var mouseX, mouseY;
 var clicking;
