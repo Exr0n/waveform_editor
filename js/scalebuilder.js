@@ -1,9 +1,39 @@
 var selectedScale = 0;
 var Tone = auctx.createOscillator();
+var Tone2 = auctx.createOscillator();
+var Tone3 = auctx.createOscillator();
+var Volume = auctx.createGain();
+var Volume2 = auctx.createGain();
+var Volume3 = auctx.createGain();
+Volume.connect(auctx.destination);
+Volume2.connect(auctx.destination);
+Volume3.connect(auctx.destination);
 var ToneIsPlaying = false;
 function run(){
-    Tone.type = "triangle";
+    Tone.type = "sine";
+    Tone2.type = "square";
+    Tone3.type = "triangle";
     if(screen == "ScaleBuild"){
+        if(Volume2.gain.value > 0){
+            Volume2.gain.value*=0.982;
+        }
+        else{
+            Volume2.gain.value = 0;
+        }
+        if(Volume3.gain.value > 0){
+            Volume3.gain.value*=0.965;
+        }
+        else{
+            Volume3.gain.value = 0;
+        }
+        if(Volume.gain.value > 0){
+            Volume.gain.value*=0.95;
+        }
+        else{
+            Volume.gain.value = 0;
+        }
+
+
         canvas.width=window.innerWidth-3;
         canvas.height=window.innerHeight-4;
         ctx.textAlign = "center";
@@ -36,11 +66,27 @@ function run(){
             else if(clicking){
                 if(ToneIsPlaying){
                     Tone.stop();
+                    Tone2.stop();
+                    Tone3.stop();
                 }
                 Tone = auctx.createOscillator();
                 Tone.frequency.setValueAtTime(current.baseNote*2, auctx.currentTime); // value in hertz
-                Tone.connect(auctx.destination);
+                Tone.connect(Volume);
                 Tone.start();
+                Volume.gain.value = 0.7;
+
+                Tone2 = auctx.createOscillator();
+                Tone2.frequency.setValueAtTime(current.baseNote*2, auctx.currentTime); // value in hertz
+                Tone2.connect(Volume2);
+                Tone2.start();
+                Volume2.gain.value = 0.25;
+
+                Tone3 = auctx.createOscillator();
+                Tone3.frequency.setValueAtTime(current.baseNote*2, auctx.currentTime); // value in hertz
+                Tone3.connect(Volume3);
+                Tone3.start();
+                Volume3.gain.value = 0.07;
+
                 ToneIsPlaying = true;
             }
         }
@@ -62,12 +108,27 @@ function run(){
                 else if(clicking){
                     if(ToneIsPlaying){
                         Tone.stop();
+                        Tone2.stop();
+                        Tone3.stop();
                     }
                     Tone = auctx.createOscillator();
                     Tone.frequency.setValueAtTime(Math.pow(Math.pow(current.size,1/current.weights.length),i)*current.baseNote, auctx.currentTime); // value in hertz
-                    Tone.connect(auctx.destination);
+                    Tone.connect(Volume);
                     Tone.start();
                     ToneIsPlaying = true;
+                    Volume.gain.value = 0.7;
+
+                    Tone2 = auctx.createOscillator();
+                    Tone2.frequency.setValueAtTime(Math.pow(Math.pow(current.size,1/current.weights.length),i)*current.baseNote, auctx.currentTime); // value in hertz
+                    Tone2.connect(Volume2);
+                    Tone2.start();
+                    Volume2.gain.value = 0.25;
+
+                    Tone3 = auctx.createOscillator();
+                    Tone3.frequency.setValueAtTime(Math.pow(Math.pow(current.size,1/current.weights.length),i)*current.baseNote, auctx.currentTime); // value in hertz
+                    Tone3.connect(Volume3);
+                    Tone3.start();
+                    Volume3.gain.value = 0.07;
                 }
             }
             
