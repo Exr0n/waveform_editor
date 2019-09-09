@@ -1,7 +1,12 @@
 var dropDownSelected = -1;
+var ddsTemp;
+var awaitingScale = false;
 
 function run(){
   if(screen == "Home"){
+    if(awaitingScale){
+      threads[ddsTemp].scale = scales[selectedScale].name;
+    }
     canvas.width=window.innerWidth-3;
     canvas.height=window.innerHeight-4;
     Rect(0,0,canvas.width,canvas.height, "base", false);
@@ -104,6 +109,8 @@ function run(){
       
       if(Rect(mouseXTemp, mouseYTemp, canvas.width*0.1, canvas.height*0.035, "third", true, true) && clicking){
         screen = "ScaleBuild";
+        awaitingScale = true;
+        ddsTemp = dropDownSelected;
         dropDownSelected = -1;
       }
       if(Rect(mouseXTemp, mouseYTemp+canvas.height*0.036, canvas.width*0.1, canvas.height*0.035, "third", true, true) && clicking){

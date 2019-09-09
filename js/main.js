@@ -40,7 +40,7 @@ function mScroll(event){
 }
 
 function Rect(x, y, w, h, col, selectable, dds){
-  if(mouseX < x+w && mouseX > x && mouseY < y+h && mouseY > y && selectable == true && !(!dds && dropDownSelected != -1)){
+  if(mouseX < x+w && mouseX > x && mouseY < y+h && mouseY > y && selectable == true && !(!dds && dropDownSelected != -1) && !(!dds && scaleDropDownSelected != -1)){
     if(col == "base"){
       ctx.fillStyle = baseSelected;
     }
@@ -69,7 +69,7 @@ function Rect(x, y, w, h, col, selectable, dds){
     }
   }
   ctx.fillRect(x, y, w, h);
-  return(mouseX < x+w && mouseX > x && mouseY < y+h && mouseY > y && !(!dds && dropDownSelected != -1));
+  return(mouseX < x+w && mouseX > x && mouseY < y+h && mouseY > y && !(!dds && dropDownSelected != -1) && !(!dds && scaleDropDownSelected != -1));
 }
 
 class thread {
