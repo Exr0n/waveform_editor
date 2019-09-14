@@ -11,11 +11,14 @@ const textColor3 = "#102021";
 var canvas = document.getElementById("Editor");
 var ctx = canvas.getContext("2d");
 var auctx = new window.AudioContext();
+var key = '';
 
 var mouseX, mouseY;
 var clicking;
 var rClicking;
 var scroll = 0;
+var scroll2 = 0;
+var zoom = 400;
 var scrollLimit = 0;
 
 var screen = "Home";
@@ -32,8 +35,18 @@ function mUp(event){
     clicking = true;
   }
 }
+function keyPress(event){
+  key = event.key;
+}
 
 function mScroll(event){
+  if(key == "Shift"){
+    zoom *= (event.wheelDelta/960+1);
+    scroll2 *= (event.wheelDelta/960+1)
+  }
+  if(key == "f"){
+    scroll2 += event.wheelDelta * canvas.width / 3840;
+  }
   scroll += event.wheelDelta * canvas.width / 3840;
   if(scroll > 0 || scrollLimit >= 0){scroll = 0;}
   if(scroll < scrollLimit && scrollLimit < 0){scroll = scrollLimit;}
