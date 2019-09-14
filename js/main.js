@@ -38,6 +38,9 @@ function mUp(event){
 function keyPress(event){
   key = event.key;
 }
+function keyRelease(event){
+  key = "";
+}
 
 function mScroll(event){
   if(key == "Shift"){

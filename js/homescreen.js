@@ -106,13 +106,13 @@ function run(){
     for(var i = scroll2/zoom; i < scroll2/zoom+canvas.width*0.87/zoom;){
       ctx.font = Math.min(canvas.width, canvas.height*1.9)*0.01 + "px Arial";
       ctx.fillStyle = textColor;
-      if(Math.floor(250/zoom)>=0.5){
+      if(Math.floor(500/zoom)>=0.5){
         ctx.fillText(Math.round(i), i*zoom+canvas.width*0.11-scroll2, canvas.height*0.07);
-        i += Math.floor(250/zoom);
+        i += Math.floor(500/zoom);
       }
       else{
-        ctx.fillText(Math.round(i * Math.pow(10, -Math.floor(Math.log10(250/zoom)))) / Math.pow(10, -Math.floor(Math.log10(250/zoom))), i*zoom+canvas.width*0.11-scroll2, canvas.height*0.07);
-        i += 250.0/zoom;
+        ctx.fillText(Math.round(i * Math.pow(10, -Math.floor(Math.log10(500/zoom)))) / Math.pow(10, -Math.floor(Math.log10(500/zoom))), i*zoom+canvas.width*0.11-scroll2, canvas.height*0.07);
+        i += 500.0/zoom;
       }
     }
     if(dropDownSelected != -1){
