@@ -47,12 +47,17 @@ function mScroll(event){
     zoom *= (event.wheelDelta/960+1);
     scroll2 *= (event.wheelDelta/960+1)
   }
-  if(key == "f"){
+  else if(key == "f"){
     scroll2 += event.wheelDelta * canvas.width / 3840;
+    if(scroll2 < 0){
+      scroll2 = 0;
+    }
   }
-  scroll += event.wheelDelta * canvas.width / 3840;
-  if(scroll > 0 || scrollLimit >= 0){scroll = 0;}
-  if(scroll < scrollLimit && scrollLimit < 0){scroll = scrollLimit;}
+  else{
+    scroll += event.wheelDelta * canvas.width / 3840;
+    if(scroll > 0 || scrollLimit >= 0){scroll = 0;}
+    if(scroll < scrollLimit && scrollLimit < 0){scroll = scrollLimit;}
+  }
 }
 
 function Rect(x, y, w, h, col, selectable, dds){
@@ -132,3 +137,20 @@ class scale {
 var scales = [];
 
 scales.push(new scale(440, 2, 12, [1,1,1,1,1,1,1,1,1,1,1,1], [1,0,1,1,0,1,0,1,1,0,1,0],["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],"Western"));
+
+class chunk{
+  notes = [];
+  length;
+  loopLength;
+  constructor(len){
+    length = len;
+    loopLength = len;
+  }
+}
+
+class note{
+  indexOfStart = [];
+  indexOfEnd = [];
+  pitch;
+  volume;
+}

@@ -102,7 +102,8 @@ function run(){
         ctx.fillText("p "+Math.round(threads[indexOfThreads].pan), canvas.width*0.06875, canvas.height*0.1825+canvas.height*0.11*indexOfThreads + scroll);
       }
     }
-    Rect(canvas.width*0.1,canvas.height*0.06 + scroll,canvas.width*0.89,canvas.height*0.02, "second", false, false);
+    Rect(0,0,canvas.width, canvas.height*0.1, "base", false, false);
+    Rect(canvas.width*0.1,canvas.height*0.06,canvas.width*0.89,canvas.height*0.02, "second", false, false);
     for(var i = scroll2/zoom; i < scroll2/zoom+canvas.width*0.87/zoom;){
       ctx.font = Math.min(canvas.width, canvas.height*1.9)*0.01 + "px Arial";
       ctx.fillStyle = textColor;

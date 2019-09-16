@@ -7,3 +7,14 @@ This allows for interesting time signatures and polyrhythms.
 This lets people go much more experimental, as they can play notes outside even of the traditional western scale.
 
 Good luck figuring it out!
+
+
+
+
+
+To-Do
+
+ 1. Add ability to change size of scale (to something other than an octave)
+ 2. Draw lines on each thread at measures, as well as sub-divisions
+ 3. Mute / 100%volume / center pan buttons or equivalent to reset volume and pan sliders
+ 4. 
