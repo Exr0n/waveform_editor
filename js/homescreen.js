@@ -25,13 +25,13 @@ function run(){
             threads.push(new thread([],"Western", s));
           }
         }
-        
+
         ctx.font = Math.min(canvas.width, canvas.height*1.9)*0.07 + "px Arial";
         ctx.fillStyle = textColor;
-        
+
         //add new thread
         ctx.fillText('+', canvas.width*0.05, canvas.height*0.159+canvas.height*0.11*indexOfThreads + scroll);
-        
+
       }
       else{
 
@@ -42,11 +42,29 @@ function run(){
           dropDownSelected = indexOfThreads;
         }
 
-        
+
         // main box to show music
         Rect(canvas.width*0.1,canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll,canvas.width*0.89,canvas.height*0.1, "second", true, false);
+        for(var i = scroll2/zoom; i < scroll2/zoom+canvas.width*0.87/zoom; i++){
+          if(zoom > 50){
+            for(var j = 0; j < prdct(threads[indexOfThreads].times); j++){
+              var colo;
+              if(j % (prdct(threads[indexOfThreads].times)/threads[indexOfThreads].times[0]) == 0){
+                colo = "#444444";
+              }
+              else if(j % (prdct(threads[indexOfThreads].times)/(threads[indexOfThreads].times[1]*threads[indexOfThreads].times[0])) == 0){
+                colo = "#888888";
+              }
+              else{
+                colo = "#CCCCCC";
+              }
+              Rect(i*zoom+canvas.width*0.11-scroll2+j*zoom/prdct(threads[indexOfThreads].times), canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, colo, false, false);
+            }
+          }
+          Rect(i*zoom+canvas.width*0.11-scroll2, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, "black", false, false);
+        }
         for(var indexOfTimes = 0; indexOfTimes < threads[indexOfThreads].times.length+1; indexOfTimes++){
-          
+
           if(indexOfTimes == threads[indexOfThreads].times.length){
             if(threads[indexOfThreads].times.length < 4){
               //box with sub-division
@@ -71,7 +89,7 @@ function run(){
             ctx.fillText(threads[indexOfThreads].times[indexOfTimes], canvas.width*0.02+indexOfTimes*canvas.width*0.02, canvas.height*0.1475+canvas.height*0.11*indexOfThreads + scroll);
           }
         }
-        
+
         if(Rect(canvas.width*0.015, canvas.height*0.105+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.07, canvas.height*0.025, "base", true, false) && clicking){
           var s = window.prompt("What would you like to change this name to?", threads[indexOfThreads].name);
           if(s != null){
@@ -88,7 +106,7 @@ function run(){
           }
         }
         Rect(threads[indexOfThreads].volume * canvas.width * 0.0325 / 200 + canvas.width*0.015, canvas.height*0.17+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.001, canvas.height*0.025, "second", false, false);
-        
+
         if(Rect(canvas.width*0.0525, canvas.height*0.17+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0325, canvas.height*0.025, "base", true, false)){
           Rect(mouseX, canvas.height*0.17+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.001, canvas.height*0.025, "second", false, false);
           if(clicking){
@@ -120,7 +138,7 @@ function run(){
       if(!Rect(mouseXTemp-canvas.width*0.0006, mouseYTemp-canvas.height*0.001, canvas.width*0.1+canvas.width*0.0012, canvas.height*0.14+canvas.height*0.002, "base", true, true)){
         dropDownSelected = -1;
       }
-      
+
       if(Rect(mouseXTemp, mouseYTemp, canvas.width*0.1, canvas.height*0.035, "third", true, true) && clicking){
         screen = "ScaleBuild";
         awaitingScale = true;
@@ -142,7 +160,7 @@ function run(){
         dropDownSelected = -1;
       }
       if(Rect(mouseXTemp, mouseYTemp+canvas.height*0.072, canvas.width*0.1, canvas.height*0.035, "third", true, true) && clicking){
-        
+
         for(var i = dropDownSelected; i < threads.length-1; i++){
           threads[i] = threads[i+1];
         }
@@ -160,7 +178,7 @@ function run(){
       ctx.fillText("Duplicate", mouseXTemp + canvas.width*0.05, mouseYTemp + canvas.height*0.0535);
       ctx.fillText("Delete", mouseXTemp + canvas.width*0.05, mouseYTemp + canvas.height*0.0895);
       ctx.fillText("Cancel", mouseXTemp + canvas.width*0.05, mouseYTemp + canvas.height*0.1265);
-      
+
     }
     clicking = false;
     rClicking = false;
@@ -168,6 +186,3 @@ function run(){
 }
 
 var interval = setInterval(run,10);
-
-
-

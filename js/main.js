@@ -1,12 +1,12 @@
-const baseColor = "#364248";
-const baseSelected = "#263238";
-const secondColor = "#506069";
-const secondSelected = "#607079";
-const thirdColor = "#C6F0FF";
-const thirdSelected = "#B6E0EF";
-const textColor = "#D6F4FF";
-const textColor2 = "#76A9B5";
-const textColor3 = "#102021";
+const baseColor = "#363C48";
+const baseSelected = "#262C38";
+const secondColor = "#505969";
+const secondSelected = "#606979";
+const thirdColor = "#C6D2FF";
+const thirdSelected = "#B6C6EF";
+const textColor = "#D6E2FF";
+const textColor2 = "#7681B5";
+const textColor3 = "#101821";
 
 var canvas = document.getElementById("Editor");
 var ctx = canvas.getContext("2d");
@@ -59,7 +59,13 @@ function mScroll(event){
     if(scroll < scrollLimit && scrollLimit < 0){scroll = scrollLimit;}
   }
 }
-
+function prdct(array){
+  var output = 1;
+  for(var i = 0; i < array.length; i++){
+    output *= array[i];
+  }
+  return(output);
+}
 function Rect(x, y, w, h, col, selectable, dds){
   if(mouseX < x+w && mouseX > x && mouseY < y+h && mouseY > y && selectable == true && !(!dds && dropDownSelected != -1) && !(!dds && scaleDropDownSelected != -1)){
     if(col == "base"){
@@ -153,4 +159,9 @@ class note{
   indexOfEnd = [];
   pitch;
   volume;
+  constructor(p, start, end){
+    indexOfStart = start;
+    indexOfEnd = end;
+    pitch = p;
+  }
 }
