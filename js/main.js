@@ -146,13 +146,19 @@ scales.push(new scale(440, 2, 12, [1,1,1,1,1,1,1,1,1,1,1,1], [1,0,1,1,0,1,0,1,1,
 
 class chunk{
   notes = [];
-  length;
-  loopLength;
-  constructor(len){
-    length = len;
-    loopLength = len;
+  start = [];
+  length = [];
+  loopLength = [];
+  constructor(sta, len){
+    for(var i = 0; i < len.length; i++){
+      length[i] = len[i];
+      loopLength[i] = len[i];
+      start[i] = sta[i];
+    }
   }
 }
+
+var chunks = [];
 
 class note{
   indexOfStart = [];

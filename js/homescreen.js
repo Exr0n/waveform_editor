@@ -44,7 +44,21 @@ function run(){
 
 
         // main box to show music
-        Rect(canvas.width*0.1,canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll,canvas.width*0.89,canvas.height*0.1, "second", true, false);
+        if(Rect(canvas.width*0.1,canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll,canvas.width*0.89,canvas.height*0.1, "second", true, false) && clicking){
+          var chstart = [];
+          chstart.push(scroll2/zoom + (mouseX-canvas.height*0.1)/zoom);
+          for(var i = 0; i < threads[indexOfThreads].times.length; i++){
+            if(i == 0){
+              chstart.push((Math.round((mouseX - canvas.height*0.125) % zoom * threads[indexOfThreads].times[i]/zoom + 1.5)) % threads[indexOfThreads].times[i]);
+            }
+            else{
+              chstart.push(Math.round((mouseX - canvas.height*0.125) % zoom *(prdct(threads[indexOfThreads].times.slice(0,i))) * threads[indexOfThreads].times[i]/(zoom)) % threads[indexOfThreads].times[i]);
+            }
+          }
+          console.log(chstart);
+          var chlen = [];
+          chunks.push(new chunk(chstart, chlen));
+        }
         for(var i = scroll2/zoom; i < scroll2/zoom+canvas.width*0.87/zoom; i++){
           if(zoom > 50){
             for(var j = 0; j < prdct(threads[indexOfThreads].times); j++){
