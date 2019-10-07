@@ -46,20 +46,25 @@ function run(){
         // main box to show music
         if(Rect(canvas.width*0.1,canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll,canvas.width*0.89,canvas.height*0.1, "second", true, false) && clicking){
           var chstart = [];
-          chstart.push(scroll2/zoom + (mouseX-canvas.height*0.1)/zoom);
+          scaledMX = (mouseX-canvas.width*0.11)/zoom;
+          console.log(scaledMX);
+          chstart.push(Math.floor(scroll2/zoom + scaledMX));
           for(var i = 0; i < threads[indexOfThreads].times.length; i++){
             if(i == 0){
-              chstart.push((Math.round((mouseX - canvas.height*0.125) % zoom * threads[indexOfThreads].times[i]/zoom + 1.5)) % threads[indexOfThreads].times[i]);
+              chstart.push((Math.floor((mouseX - canvas.width*0.11) % zoom * threads[indexOfThreads].times[i]/zoom)) % threads[indexOfThreads].times[i]);
             }
             else{
-              chstart.push(Math.round((mouseX - canvas.height*0.125) % zoom *(prdct(threads[indexOfThreads].times.slice(0,i))) * threads[indexOfThreads].times[i]/(zoom)) % threads[indexOfThreads].times[i]);
+              chstart.push(Math.floor((mouseX - canvas.width*0.11) % zoom *(prdct(threads[indexOfThreads].times.slice(0,i))) * threads[indexOfThreads].times[i]/(zoom)) % threads[indexOfThreads].times[i]);
             }
           }
-          console.log(chstart);
           var chlen = [];
-          chunks.push(new chunk(chstart, chlen));
+          chlen.push(1);
+          for(var i = 0; i < threads[indexOfThreads].times.length; i++){
+            chlen.push(threads[indexOfThreads].times[i]);
+          }
+          threads[indexOfThreads].chunks.push(new chunk(chstart, chlen));
         }
-        for(var i = scroll2/zoom; i < scroll2/zoom+canvas.width*0.87/zoom; i++){
+        for(var i = Math.round(scroll2/zoom); i < scroll2/zoom+canvas.width*0.87/zoom; i++){
           if(zoom > 50){
             for(var j = 0; j < prdct(threads[indexOfThreads].times); j++){
               var colo;
@@ -72,10 +77,14 @@ function run(){
               else{
                 colo = "#CCCCCC";
               }
-              Rect(i*zoom+canvas.width*0.11-scroll2+j*zoom/prdct(threads[indexOfThreads].times), canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, colo, false, false);
+              if(i*zoom-scroll2+j*zoom/prdct(threads[indexOfThreads].times) >= 0 && j*zoom/prdct(threads[indexOfThreads].times != 0)){
+                Rect(i*zoom+canvas.width*0.11-scroll2+j*zoom/prdct(threads[indexOfThreads].times), canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, colo, false, false);
+              }
             }
           }
-          Rect(i*zoom+canvas.width*0.11-scroll2, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, "black", false, false);
+          if(i*zoom-scroll2 >= 0){
+            Rect(i*zoom+canvas.width*0.11-scroll2, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, "black", false, false);
+          }
         }
         for(var indexOfTimes = 0; indexOfTimes < threads[indexOfThreads].times.length+1; indexOfTimes++){
 
@@ -136,15 +145,19 @@ function run(){
     }
     Rect(0,0,canvas.width, canvas.height*0.1, "base", false, false);
     Rect(canvas.width*0.1,canvas.height*0.06,canvas.width*0.89,canvas.height*0.02, "second", false, false);
-    for(var i = scroll2/zoom; i < scroll2/zoom+canvas.width*0.87/zoom;){
+    for(var i = Math.round(scroll2/zoom); i < scroll2/zoom+canvas.width*0.87/zoom;){
       ctx.font = Math.min(canvas.width, canvas.height*1.9)*0.01 + "px Arial";
       ctx.fillStyle = textColor;
       if(Math.floor(500/zoom)>=0.5){
-        ctx.fillText(Math.round(i), i*zoom+canvas.width*0.11-scroll2, canvas.height*0.07);
+        if(i*zoom-scroll2 >= 0){
+          ctx.fillText(Math.round(i), i*zoom+canvas.width*0.11-scroll2, canvas.height*0.07);
+        }
         i += Math.floor(500/zoom);
       }
       else{
-        ctx.fillText(Math.round(i * Math.pow(10, -Math.floor(Math.log10(500/zoom)))) / Math.pow(10, -Math.floor(Math.log10(500/zoom))), i*zoom+canvas.width*0.11-scroll2, canvas.height*0.07);
+        if(i*zoom-scroll2 >= 0){
+          ctx.fillText(Math.round(i * Math.pow(10, -Math.floor(Math.log10(500/zoom)))) / Math.pow(10, -Math.floor(Math.log10(500/zoom))), i*zoom+canvas.width*0.11-scroll2, canvas.height*0.07);
+        }
         i += 500.0/zoom;
       }
     }

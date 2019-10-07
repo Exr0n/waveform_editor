@@ -131,6 +131,7 @@ class scale {
     this.baseNote = bs;
     this.size = sz;
     this.quantity = qu;
+    this.chunks = [];
     for(var i = 0; i < wg.length; i++){
       this.weights.push(wg[i]);
       this.colors.push(cl[i]);
@@ -158,7 +159,6 @@ class chunk{
   }
 }
 
-var chunks = [];
 
 class note{
   indexOfStart = [];
