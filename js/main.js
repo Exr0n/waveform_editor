@@ -45,7 +45,7 @@ function keyRelease(event){
 function mScroll(event){
   if(key == "Shift"){
     zoom *= (event.wheelDelta/960+1);
-    scroll2 *= (event.wheelDelta/960+1)
+    scroll2 *= (event.wheelDelta/960+1);
   }
   else if(key == "f"){
     scroll2 += event.wheelDelta * canvas.width / 3840;
@@ -101,11 +101,13 @@ function Rect(x, y, w, h, col, selectable, dds){
 
 class thread {
   times = [];
+  chunks = [];
   scale;
   name;
   volume;
   pan;
   constructor(tms, scl, nam){
+    this.chunks = [];
     for(var i = 0; i < tms.length; i++){
       this.times.push(tms[i]);
     }
@@ -131,7 +133,6 @@ class scale {
     this.baseNote = bs;
     this.size = sz;
     this.quantity = qu;
-    this.chunks = [];
     for(var i = 0; i < wg.length; i++){
       this.weights.push(wg[i]);
       this.colors.push(cl[i]);
@@ -152,9 +153,9 @@ class chunk{
   loopLength = [];
   constructor(sta, len){
     for(var i = 0; i < len.length; i++){
-      length[i] = len[i];
-      loopLength[i] = len[i];
-      start[i] = sta[i];
+      this.length.push(len[i]);
+      this.loopLength.push(len[i]);
+      this.start.push(sta[i]);
     }
   }
 }

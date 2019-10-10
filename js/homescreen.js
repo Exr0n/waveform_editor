@@ -44,10 +44,9 @@ function run(){
 
 
         // main box to show music
-        if(Rect(canvas.width*0.1,canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll,canvas.width*0.89,canvas.height*0.1, "second", true, false) && clicking){
+        if(Rect(canvas.width*0.1,canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll,canvas.width*0.89,canvas.height*0.1, "second", true, false) && rClicking){
           var chstart = [];
           scaledMX = (mouseX-canvas.width*0.11)/zoom;
-          console.log(scaledMX);
           chstart.push(Math.floor(scroll2/zoom + scaledMX));
           for(var i = 0; i < threads[indexOfThreads].times.length; i++){
             if(i == 0){
@@ -60,7 +59,7 @@ function run(){
           var chlen = [];
           chlen.push(1);
           for(var i = 0; i < threads[indexOfThreads].times.length; i++){
-            chlen.push(threads[indexOfThreads].times[i]);
+            chlen.push(0);
           }
           threads[indexOfThreads].chunks.push(new chunk(chstart, chlen));
         }
@@ -77,13 +76,46 @@ function run(){
               else{
                 colo = "#CCCCCC";
               }
-              if(i*zoom-scroll2+j*zoom/prdct(threads[indexOfThreads].times) >= 0 && j*zoom/prdct(threads[indexOfThreads].times != 0)){
+              if(i*zoom-scroll2+j*zoom/prdct(threads[indexOfThreads].times) >= 0 && j*zoom/prdct(threads[indexOfThreads].times) != 0){
                 Rect(i*zoom+canvas.width*0.11-scroll2+j*zoom/prdct(threads[indexOfThreads].times), canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, colo, false, false);
               }
             }
           }
           if(i*zoom-scroll2 >= 0){
             Rect(i*zoom+canvas.width*0.11-scroll2, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.0005, canvas.height*0.1, "black", false, false);
+          }
+        }
+        for(var indexOfChunks = 0; indexOfChunks < threads[indexOfThreads].chunks.length; indexOfChunks++){
+          var x = 0;
+          console.log(threads[indexOfThreads].chunks[indexOfChunks]);
+          for(var i = 0; i < threads[indexOfThreads].chunks[indexOfChunks].start.length; i++){
+            x += threads[indexOfThreads].chunks[indexOfChunks].start[i]/prdct(threads[indexOfThreads].times.slice(0,i))*zoom;
+            console.log(threads[indexOfThreads].times.slice(0,i));
+          }
+          x += -scroll2 + canvas.width*0.11;
+          var w = 0;
+          for(var i = 0; i < threads[indexOfThreads].chunks[indexOfChunks].length.length; i++){
+            w += threads[indexOfThreads].chunks[indexOfChunks].length[i]/prdct(threads[indexOfThreads].times.slice(0,i))*zoom;
+          }
+          console.log(x);
+          console.log(w);
+          if(x < canvas.width*0.99){
+            if(x + w < canvas.width*0.99){
+              if(x > canvas.width*0.1){
+                Rect(x, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, w, canvas.height*0.1, "rgba(180,185,200,.50)", false, false);
+              }
+              else if(x+w > canvas.width*0.1){
+                Rect(canvas.width*0.1, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, w+x-canvas.width*0.1, canvas.height*0.1, "rgba(180,185,200,.50)", false, false);
+              }
+            }
+            else{
+              if(x > canvas.width*0.1){
+              Rect(x, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.99-x, canvas.height*0.1,"rgba(180,185,200,.50)", false, false);
+              }
+              else{
+                Rect(canvas.width*0.1, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.89, canvas.height*0.1, "rgba(180, 185, 200, .50)");
+              }
+            }
           }
         }
         for(var indexOfTimes = 0; indexOfTimes < threads[indexOfThreads].times.length+1; indexOfTimes++){
@@ -94,7 +126,7 @@ function run(){
               if(Rect(canvas.width*0.0125+indexOfTimes*canvas.width*0.02, canvas.height*0.135+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.015, canvas.height*0.025, "base", true, false) && clicking){
                 var n = window.prompt("How many subdivisions do you want to have?","4");
                 if(n != null){
-                  threads[indexOfThreads].times.push(n);
+                  threads[indexOfThreads].times.push(Number(n));
                 }
               }
               ctx.fillStyle = textColor;
@@ -105,7 +137,7 @@ function run(){
             if(Rect(canvas.width*0.0125+indexOfTimes*canvas.width*0.02, canvas.height*0.135+canvas.height*0.11*indexOfThreads, canvas.width*0.015, canvas.height*0.025 + scroll, "base", true, false) && clicking){
               var n = window.prompt("What would you like to change this sub-division to?",threads[indexOfThreads].times[indexOfTimes]);
               if(n != null){
-                threads[indexOfThreads].times[indexOfTimes] = n;
+                threads[indexOfThreads].times[indexOfTimes] = Number(n);
               }
             }
             ctx.fillStyle = textColor;
