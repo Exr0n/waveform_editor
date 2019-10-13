@@ -1,11 +1,15 @@
 var dropDownSelected = -1;
 var ddsTemp;
 var awaitingScale = false;
+var currentChunk = [-1,-1];
 
 function run(){
   if(screen == "Home"){
     if(awaitingScale){
       threads[ddsTemp].scale = scales[selectedScale].name;
+    }
+    if(currentChunk != [-1,-1]){
+      currentChunk = [-1,-1];
     }
     canvas.width=window.innerWidth-3;
     canvas.height=window.innerHeight-4;
@@ -50,10 +54,10 @@ function run(){
           chstart.push(Math.floor(scroll2/zoom + scaledMX));
           for(var i = 0; i < threads[indexOfThreads].times.length; i++){
             if(i == 0){
-              chstart.push((Math.floor((mouseX - canvas.width*0.11) % zoom * threads[indexOfThreads].times[i]/zoom)) % threads[indexOfThreads].times[i]);
+              chstart.push((Math.floor((mouseX - canvas.width*0.11 + scroll2) % zoom * threads[indexOfThreads].times[i]/zoom)) % threads[indexOfThreads].times[i]);
             }
             else{
-              chstart.push(Math.floor((mouseX - canvas.width*0.11) % zoom *(prdct(threads[indexOfThreads].times.slice(0,i))) * threads[indexOfThreads].times[i]/(zoom)) % threads[indexOfThreads].times[i]);
+              chstart.push(Math.floor((mouseX - canvas.width*0.11 + scroll2) % zoom *(prdct(threads[indexOfThreads].times.slice(0,i))) * threads[indexOfThreads].times[i]/(zoom)) % threads[indexOfThreads].times[i]);
             }
           }
           var chlen = [];
@@ -97,25 +101,29 @@ function run(){
           for(var i = 0; i < threads[indexOfThreads].chunks[indexOfChunks].length.length; i++){
             w += threads[indexOfThreads].chunks[indexOfChunks].length[i]/prdct(threads[indexOfThreads].times.slice(0,i))*zoom;
           }
-          console.log(x);
-          console.log(w);
+          var clicked = false;
           if(x < canvas.width*0.99){
             if(x + w < canvas.width*0.99){
               if(x > canvas.width*0.1){
-                Rect(x, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, w, canvas.height*0.1, "rgba(180,185,200,.50)", false, false);
+                if(Rect(x, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, w, canvas.height*0.1, "rgba(180,185,200,.50)", true, false) && clicking){clicked = true;}
               }
               else if(x+w > canvas.width*0.1){
-                Rect(canvas.width*0.1, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, w+x-canvas.width*0.1, canvas.height*0.1, "rgba(180,185,200,.50)", false, false);
+                if(Rect(canvas.width*0.1, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, w+x-canvas.width*0.1, canvas.height*0.1, "rgba(180,185,200,.50)", true, false) && clicking){clicked = true;}
               }
             }
             else{
               if(x > canvas.width*0.1){
-              Rect(x, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.99-x, canvas.height*0.1,"rgba(180,185,200,.50)", false, false);
+                if(Rect(x, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.99-x, canvas.height*0.1,"rgba(180,185,200,.50)", true, false) && clicking){clicked = true;}
               }
               else{
-                Rect(canvas.width*0.1, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.89, canvas.height*0.1, "rgba(180, 185, 200, .50)");
+                if(Rect(canvas.width*0.1, canvas.height*0.1+canvas.height*0.11*indexOfThreads + scroll, canvas.width*0.89, canvas.height*0.1, "rgba(180, 185, 200, .50)", true, false) && clicking){clicked = true;}
               }
             }
+          }
+          if(clicked){
+            currentChunk = [indexOfThreads,indexOfChunks];
+            screen = "Piano";
+            currentScale = threads[indexOfThreads].scale;
           }
         }
         for(var indexOfTimes = 0; indexOfTimes < threads[indexOfThreads].times.length+1; indexOfTimes++){
