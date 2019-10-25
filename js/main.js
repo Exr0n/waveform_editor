@@ -54,9 +54,15 @@ function mScroll(event){
     }
   }
   else{
-    scroll += event.wheelDelta * canvas.width / 3840;
-    if(scroll > 0 || scrollLimit >= 0){scroll = 0;}
-    if(scroll < scrollLimit && scrollLimit < 0){scroll = scrollLimit;}
+    
+    if(screen != "Piano"){
+      scroll += event.wheelDelta * canvas.width / 3840;
+      if(scroll > 0 || scrollLimit >= 0){scroll = 0;}
+      if(scroll < scrollLimit && scrollLimit < 0){scroll = scrollLimit;}
+    }
+    else{
+      scroll += event.wheelDelta/240;
+    }
   }
 }
 function prdct(array){

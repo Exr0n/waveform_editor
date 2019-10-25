@@ -123,7 +123,12 @@ function run(){
           if(clicked){
             currentChunk = [indexOfThreads,indexOfChunks];
             screen = "Piano";
-            currentScale = threads[indexOfThreads].scale;
+            scroll = 0;
+            for(var i = 0; i < scales.length; i++){
+              if(scales[i].name == threads[indexOfThreads].scale){
+                currentScale = scales[i];
+              }
+            }
           }
         }
         for(var indexOfTimes = 0; indexOfTimes < threads[indexOfThreads].times.length+1; indexOfTimes++){

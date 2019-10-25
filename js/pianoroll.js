@@ -2,8 +2,18 @@ var currentScale;
 function run(){
     if(screen == "Piano"){
         Rect(0,0,canvas.width,canvas.height, "base", false);
-        for(var i = 0; i < canvas.height; i += canvas.height/50){
-            Rect(0,i,canvas.width*0.05,canvas.height*0.02, "#000000", true, false);
+        for(var i = scroll*canvas.height/48; i < scroll*canvas.height/48+canvas.height; i += canvas.height/48){
+            if (currentScale.colors[(Math.round(48-i/canvas.height*48) % currentScale.colors.length + currentScale.colors.length) % currentScale.colors.length] == 0){
+                Rect(0,i-scroll*canvas.height/48,canvas.width*0.05,canvas.height/48, "#000000", true, false);
+            }
+            else{
+                Rect(0,i-scroll*canvas.height/48,canvas.width*0.05,canvas.height/48, "#FFFFFF", true, false);
+            }
+            if((Math.round(48-i/canvas.height*48) % currentScale.colors.length + currentScale.colors.length) % currentScale.colors.length == 0){
+                ctx.fillStyle = textColor2;
+                console.log(Math.round(48-i/canvas.height*48) / currentScale.colors.length);
+                ctx.fillText(currentScale.names[0] + " " + Math.round(48-i/canvas.height*48) / currentScale.colors.length,canvas.width*0.025,i -scroll*canvas.height/48 + canvas.height/96);
+            }
         }
     }
 }
